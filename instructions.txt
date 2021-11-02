@@ -1,0 +1,29 @@
+https://dzone.com/articles/build-a-spring-boot-app-with-flyway-and-postgres
+
+docker pull postgres:11
+docker run --name dev-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d postgres:11
+# CREATE db coursedb
+docker exec dev-postgres psql -U postgres -c"CREATE DATABASE coursedb" postgres
+
+
+docker rm dev-postgres
+docker run --name dev-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d postgres:11
+
+docker exec dev-postgres psql -U postgres -c"CREATE DATABASE coursedb" postgres\n
+
+mvn spring-boot:run
+mvn flyway:clean
+
+curl -X POST \
+  -H "Authorization: Bearer $TOKEN"\
+  http://localhost:8090/teachers/531e4cdd-bb78-4769-a0c7-cb948a9f1238/review \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "author" : "Raphael",
+    "review" : "Test"
+  }'
+
+SELECT id, email, name, pictureurl, reviews FROM public.teacher WHERE id = '531e4cdd-bb78-4769-a0c7-cb948a9f1238';
+
+"531e4cdd-bb78-4769-a0c7-cb948a9f1238"	"jirafales@yahoo_.com"	"Profesor Jirafales"	"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Ruben2017.jpg/245px-Ruben2017.jpg"	"[{""date"": [2021, 11, 2], ""author"": ""Raphael"", ""review"": ""Test""}]"
+  
