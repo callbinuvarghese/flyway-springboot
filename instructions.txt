@@ -22,8 +22,43 @@ curl -X POST \
     "author" : "Raphael",
     "review" : "Test"
   }'
+  
+
 
 SELECT id, email, name, pictureurl, reviews FROM public.teacher WHERE id = '531e4cdd-bb78-4769-a0c7-cb948a9f1238';
 
 "531e4cdd-bb78-4769-a0c7-cb948a9f1238"	"jirafales@yahoo_.com"	"Profesor Jirafales"	"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Ruben2017.jpg/245px-Ruben2017.jpg"	"[{""date"": [2021, 11, 2], ""author"": ""Raphael"", ""review"": ""Test""}]"
   
+  
+➜ curl -X POST \
+  -H "Authorization: Bearer $TOKEN"\
+  http://localhost:8090/teachers/531e4cdd-bb78-4769-a0c7-cb948a9f1238/review \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "author" : "Binu",
+    "review" : "A good Teacher"
+  }'
+➜ curl http://localhost:8090/teachers/531e4cdd-bb78-4769-a0c7-cb948a9f1238
+{
+  "name" : "Profesor Jirafales",
+  "pictureURL" : "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Ruben2017.jpg/245px-Ruben2017.jpg",
+  "email" : "jirafales@yahoo_.com",
+  "reviews" : [ {
+    "author" : "Raphael",
+    "review" : "Test",
+    "date" : "2021-11-02"
+  }, {
+    "author" : "Binu",
+    "review" : "A good Teacher",
+    "date" : "2021-11-03"
+  } ],
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8090/teachers/531e4cdd-bb78-4769-a0c7-cb948a9f1238"
+    },
+    "teacher" : {
+      "href" : "http://localhost:8090/teachers/531e4cdd-bb78-4769-a0c7-cb948a9f1238"
+    }
+  }
+}%
+
