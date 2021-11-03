@@ -62,3 +62,26 @@ SELECT id, email, name, pictureurl, reviews FROM public.teacher WHERE id = '531e
   }
 }%
 
+➜ docker exec -it dev-postgres bash
+root@85183952d363:/#  psql -U postgres   -d postgres
+psql (11.13 (Debian 11.13-1.pgdg90+1))
+Type "help" for help.
+
+postgres=#  \c coursedb
+You are now connected to database "coursedb" as user "postgres".
+coursedb=# SELECT id, email, name, pictureurl, reviews FROM public.teacher WHERE id = '531e4cdd-bb78-4769-a0c7-cb948a9f1238';
+                  id                  |        email         |        name
+  |                                         pictureurl
+                |
+  reviews
+--------------------------------------+----------------------+------------------
+--+-----------------------------------------------------------------------------
+----------------+---------------------------------------------------------------
+--------------------------------------------------------------------------
+ 531e4cdd-bb78-4769-a0c7-cb948a9f1238 | jirafales@yahoo_.com | Profesor Jirafale
+s | https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Ruben2017.jpg/245p
+x-Ruben2017.jpg | [{"date": [2021, 11, 2], "author": "Raphael", "review": "Test"
+}, {"date": [2021, 11, 3], "author": "Binu", "review": "A good Teacher"}]
+(1 row)
+
+coursedb=#
