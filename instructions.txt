@@ -4,14 +4,18 @@ mkdir ${HOME}/postgres-data
 
 docker pull postgres:11
 docker run --name dev-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword  -v ${HOME}/postgres-data/:/var/lib/postgresql/data -d postgres:11
+# to access container from commandline
+# docker exec -it dev-postgres bash
+# To run psql commandline
+# psql -h localhost -U postgres 
 # CREATE db coursedb
 docker exec dev-postgres psql -U postgres -c"CREATE DATABASE coursedb" postgres
 
 
-docker rm dev-postgres
-docker run --name dev-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d postgres:11
-
-docker exec dev-postgres psql -U postgres -c"CREATE DATABASE coursedb" postgres\n
+# To remoe and rerun if you want
+# docker rm dev-postgres
+# docker run --name dev-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword  -v ${HOME}/postgres-data/:/var/lib/postgresql/data -d postgres:11
+# docker exec dev-postgres psql -U postgres -c"CREATE DATABASE coursedb" postgres\n
 
 mvn spring-boot:run
 mvn flyway:clean
